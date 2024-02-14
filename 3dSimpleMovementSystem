@@ -1,0 +1,38 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+public class playable : MonoBehaviour
+{
+    public float speed = 5.0f;
+    float HorizontalInput;
+    float VerticalInput;
+    public float jump = 10f;
+    Rigidbody playerRB;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        transform.Translate(0, 0, 20 *Time.deltaTime);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        VerticalInput = Input.GetAxis("Horizontal");
+        HorizontalInput = Input.GetAxis("Vertical");
+        playerRB = GetComponent<Rigidbody>();
+
+
+        transform.Translate(HorizontalInput * speed * Time.deltaTime, 0, VerticalInput * speed * Time.deltaTime);
+
+        if (Input.GetKeyDown("space"))
+        {
+            Debug.Log("Jump attempted");
+            playerRB.AddForce(Vector3.up * jump, ForceMode.Impulse);
+            //transform.Translate(0, jump * Time.deltaTime, 0);
+        }
+
+    }
+}
