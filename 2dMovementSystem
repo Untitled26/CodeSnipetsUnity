@@ -1,0 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+// Use pixelperfect camera
+
+
+public class twodmovement : MonoBehaviour
+{
+
+    public float playerSpeed = 7.5f;
+    float horiMove;
+    float jump = 2f;
+    Rigidbody2D playerTwoRB;
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        playerTwoRB = GetComponent<Rigidbody2D>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        horiMove = Input.GetAxis("Horizontal");
+        transform.Translate(horiMove * playerSpeed * Time.deltaTime, 0, 0);
+
+        if(Input.GetButtonDown("Jump"))
+        {
+            playerTwoRB.AddForce(Vector2.up * jump, ForceMode2D.Impulse);
+        }
+    }
+}
