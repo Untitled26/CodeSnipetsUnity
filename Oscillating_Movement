@@ -1,0 +1,64 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class platform1 : MonoBehaviour
+{
+
+    int movinator;
+    public int speed;
+    int counter = 0;
+    int negpos = 0;
+    public int moveamount;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        movinator= 1;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.Translate(movinator * speed * Time.deltaTime, 0, 0);
+
+        counter = counter + 1;
+
+        if (counter == moveamount)
+        {
+            negpos = negpos + 1;
+            counter = 0;
+        }
+
+        if (negpos%2 == 0) // When even move forward
+        {
+            movinator = -1;
+        }
+
+        if (negpos%2 == 1) // When odd move back
+        {
+            movinator = 1;
+        }
+
+
+
+
+
+
+        /*
+        if (counter == 20) {
+            movinator = -1;
+            counter = 0;
+        }
+
+        if (counter == 0)
+        {
+            movinator = 1;
+        }
+
+
+        counter = counter + 1;
+
+        Debug.Log(counter + ' ' + movinator);*/
+    }
+}
