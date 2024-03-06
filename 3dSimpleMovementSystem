@@ -10,6 +10,7 @@ public class playable : MonoBehaviour
     float VerticalInput;
     public float jump = 10f;
     bool inair = false;
+    bool doublejumped = false;
     Rigidbody playerRB;
 
     // Start is called before the first frame update
@@ -34,6 +35,15 @@ public class playable : MonoBehaviour
             playerRB.AddForce(Vector3.up * jump, ForceMode.Impulse);
 
             inair = true;
+            
+        }
+
+        if (Input.GetKeyDown("space") && inair == true && doublejumped == false)
+        {
+            Debug.Log("Double Jump attempted");
+            playerRB.AddForce(Vector3.up * jump, ForceMode.Impulse);
+
+            doublejumped = true;
         }
 
     }
@@ -43,6 +53,10 @@ public class playable : MonoBehaviour
         if (other.gameObject.tag == "Ground") //make floor have tag = Ground
         {
             inair = false;
+            doublejumped = false;
+            Debug.Log("on Ground");
+
+            
         }
     }
 }
