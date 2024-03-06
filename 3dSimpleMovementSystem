@@ -9,12 +9,13 @@ public class playable : MonoBehaviour
     float HorizontalInput;
     float VerticalInput;
     public float jump = 10f;
+    bool inair = false;
     Rigidbody playerRB;
 
     // Start is called before the first frame update
     void Start()
     {
-        transform.Translate(0, 0, 20 *Time.deltaTime);
+        transform.Translate(0, 0, 20 * Time.deltaTime);
     }
 
     // Update is called once per frame
@@ -27,12 +28,21 @@ public class playable : MonoBehaviour
 
         transform.Translate(HorizontalInput * speed * Time.deltaTime, 0, VerticalInput * speed * Time.deltaTime);
 
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("space") && inair == false)
         {
             Debug.Log("Jump attempted");
             playerRB.AddForce(Vector3.up * jump, ForceMode.Impulse);
-            //transform.Translate(0, jump * Time.deltaTime, 0);
+
+            inair = true;
         }
 
+    }
+
+    public void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Ground") //make floor have tag = Ground
+        {
+            inair = false;
+        }
     }
 }
